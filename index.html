@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <title>WEB-RTC</title>
+</head>
+<body>
+    <div class="navbar navbar-fixed-top navbar-dark bg-inverse">
+        <a href="/" class="navbar-brand">Demo WebRTC</a>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <h2>Réception</h2>
+                <video id="receiver-video" width="100%" height="400px"></video>
+                <textarea id="offer" class="form-control mb-4"></textarea>
+                <p>
+                    <button id="start" class="btn btn-primary btn-block">Démarrer la conversation</button>
+                </p>
+            </div>
+
+            <div class="col-sm-6">
+                <h2>Emission</h2>
+                <video id="emitter-video" width="100%" height="400px"></video>
+                <form id="incoming">
+                    <div class="form-group">
+                        <textarea id="" class="form-control mb-4"></textarea>
+                    </div>
+                    <p>
+                        <button type="submit" class="btn btn-success btn-block">Enregistrer l'offre</button>
+                    </p>
+                </form>
+                <p>
+                    <button id="receive" class="btn btn-warning btn-block">Recevoir la communication</button>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="./simplePeer.js"></script>
+    <script src="./app.js"></script>
+</body>
+</html>
