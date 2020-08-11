@@ -30,6 +30,10 @@
                     <button id="receive" class="btn btn-warning btn-block">Recevoir la communication</button>
                 </p>
             </div>
+
+            <div>
+              <a href="#" id="record">Record</a>
+            </div>
         </div>
     </div>
   })

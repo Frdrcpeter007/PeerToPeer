@@ -52,8 +52,67 @@ function streamHandler(stream, initiator = true) {
     //Ajout des events
     let emmiter = document.querySelector("#emitter-video");
 
+    emmiter.volume = 0;
     emmiter.srcObject = stream;
     emmiter.play();
+
+    var mediaRecorder = new MediaRecorder(stream),
+        chunks = [];
+
+
+    document.querySelector("#record").addEventListener("click", (e) => {
+        mediaRecorder.start();
+
+        setTimeout(() => {
+            mediaRecorder.stop()
+        }, 3500);
+    })
+
+    document.querySelector("#stopRecord").addEventListener("click", (e) => {
+        setTimeout(() => {
+            mediaRecorder.stop()
+        }, 3500);
+    })
+
+    mediaRecorder.ondataavailable = function (ev) {
+        chunks.push(ev.data)
+    }
+
+    mediaRecorder.onstop = (ev) => {
+        let blob = new Blob(chunks, { 'type': 'video/mp4;' });
+
+        console.log(chunks);
+        chunks = [];
+        let videoUrl = window.URL.createObjectURL(blob);
+
+        postVideoToServer(blob);
+    }
+}
+
+function postVideoToServer(videoblob) {
+
+    var toFile = () => {
+        videoblob.lastModifiedDate = new Date();
+        videoblob.name = "frdrcpeter.mp4";
+        return videoblob;
+    }
+
+    var fd = new FormData();
+    fd.append('file-s3', toFile(), "Test");
+    $.ajax({
+        type: 'POST',
+        url: 'http://localhost:5555/api/upload',
+        data: fd,
+        processData: false,
+        contentType: false
+    }).done(function (datas) {
+        console.log(datas);
+    });
+}
+
+function onUploadSuccess(datas) {
+    console.log(datas);
+    alert('video uploaded');
 }
 
 /**
